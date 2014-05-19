@@ -4,7 +4,7 @@ from caesarcipher import CaesarCipher
 from caesarcipher import CaesarCipherError
 
 
-class CaesarCipherTest(unittest.TestCase):
+class CaesarCipherEncodeTest(unittest.TestCase):
     def test_encode_with_known_offset(self):
         message = "Twilio"
         test_cipher = CaesarCipher(message, encode=True, offset=1)
@@ -41,6 +41,8 @@ class CaesarCipherTest(unittest.TestCase):
         test_cipher = CaesarCipher(encoded_message, decode=True, offset=14)
         self.assertEquals(message.upper(), test_cipher.decoded)
 
+
+class CaesarCipherDecodeTest(unittest.TestCase):
     def test_decode_with_known_offset(self):
         message = "UXJMJP"
         test_cipher = CaesarCipher(message, encode=True, offset=1)

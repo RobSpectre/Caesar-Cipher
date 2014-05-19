@@ -5,10 +5,11 @@ import string
 
 
 class CaesarCipher(object):
-    def __init__(self, message=None, encode=False, decode=False, offset=False):
+    def __init__(self, message=None, encode=False, decode=False, offset=False,
+                 alphabet=None):
         """
         A class that encodes and decodes strings using the Caesar shift cipher.
-        
+
         Accepts messages in a string and encodes or decodes by shifting the
         value of the letter by an arbitrary integer and transforming to
         uppercase.
@@ -31,13 +32,15 @@ class CaesarCipher(object):
         self.encode = encode
         self.decode = decode
         self.offset = offset
+        self.alphabet = alphabet
 
-        # Get ASCII alphabet in uppercase tuple.
-        self.alphabet = tuple(string.ascii_uppercase)
+        # Get alphabet based on locale value set on machine.
+        if alphabet is None:
+            self.alphabet = tuple(string.uppercase)
 
     def cipher(self):
         """Applies the Caesar shift cipher.
-        
+
         Based on the attributes of the object, applies the Caesar shift cipher
         to the message attribute.
 
@@ -65,12 +68,12 @@ class CaesarCipher(object):
                 encoded_message_list[i] = self.alphabet[cipher_value]
                 logging.debug("Encoded letter: %s" % letter)
         self.message = ''.join(encoded_message_list)
-        return self.message 
+        return self.message
 
     @property
     def encoded(self):
         """Encodes message using Caesar shift cipher
-        
+
         Returns:
             String encoded with cipher.
         """
@@ -79,7 +82,7 @@ class CaesarCipher(object):
     @property
     def decoded(self):
         """Decodes message using Caesar shift cipher
-        
+
         Inverse operation of encoding, applies negative offset to Caesar shift
         cipher.
 
@@ -111,6 +114,9 @@ parser.add_argument('-d', '--decode', action="store_true",
                     help="Decode this message.")
 parser.add_argument('-o', '--offset',
                     help="Integer offset to encode/decode message against.")
+parser.add_argument('-a', '--alphabet',
+                    help="String of alphabet you want to use to apply the "
+                         "cipher against.")
 
 if __name__ == "__main__":
     caesar_cipher = CaesarCipher()
@@ -119,8 +125,8 @@ if __name__ == "__main__":
         caesar_cipher.offset = int(caesar_cipher.offset)
     if caesar_cipher.offset is False and caesar_cipher.decode is True:
         raise CaesarCipherError("Message cannot be decoded without "
-                                    "selecting an offset.  Please try "
-                                    "again with -o switch.")
+                                "selecting an offset.  Please try "
+                                "again with -o switch.")
     if caesar_cipher.encode is True and caesar_cipher.decode is True:
         raise CaesarCipherError("Please select to encode *or* decode message, "
                                 "not both.")
