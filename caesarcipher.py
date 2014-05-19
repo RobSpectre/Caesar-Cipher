@@ -49,7 +49,7 @@ class CaesarCipher(object):
             String with cipher applied.
         """
         if self.offset is False:
-            self.offset = randrange(1, 10000)
+            self.offset = randrange(5, 25)
             logging.info("Random offset selected: %i" % self.offset)
 
         logging.info("Encoding message: %s" % self.message)
@@ -64,7 +64,8 @@ class CaesarCipher(object):
                 logging.debug("Cipher value: %s" % cipher_value)
                 encoded_message_list[i] = self.alphabet[cipher_value]
                 logging.debug("Encoded letter: %s" % letter)
-        return ''.join(encoded_message_list)
+        self.message = ''.join(encoded_message_list)
+        return self.message 
 
     @property
     def encoded(self):

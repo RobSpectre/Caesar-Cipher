@@ -63,3 +63,9 @@ class CaesarCipherTest(unittest.TestCase):
         test_cipher = CaesarCipher(message, decode=True, offset=10008)
         self.assertEquals(test_cipher.decoded,
                           "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.")
+
+    def test_encode_decode_persistence(self):
+        message = "The quick brown fox jumps over the lazy dog."
+        test_cipher = CaesarCipher(message, encode=True, offset=14)
+        test_cipher.encoded
+        self.assertEquals(message.upper(), test_cipher.decoded)
