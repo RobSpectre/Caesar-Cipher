@@ -1,7 +1,6 @@
 import unittest
 
 from caesarcipher import CaesarCipher
-from caesarcipher import CaesarCipherError
 
 
 class CaesarCipherEncodeTest(unittest.TestCase):
@@ -71,3 +70,12 @@ class CaesarCipherDecodeTest(unittest.TestCase):
         test_cipher = CaesarCipher(message, encode=True, offset=14)
         test_cipher.encoded
         self.assertEquals(message.upper(), test_cipher.decoded)
+
+
+class CaesarCipherRegressionTest(unittest.TestCase):
+    def test_all_offsets(self):
+        message = "The quick brown fox jumps over the lazy dog."
+        for i in range(0, 100):
+            test_cipher = CaesarCipher(message, encode=True, offset=i)
+            test_cipher.encoded
+            self.assertEquals(message.upper(), test_cipher.decoded)
