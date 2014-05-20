@@ -53,20 +53,20 @@ class CaesarCipher(object):
         """
         if self.offset is False:
             self.offset = randrange(5, 25)
-            logging.info("Random offset selected: {}".format(self.offset))
+            logging.info("Random offset selected: {0}".format(self.offset))
 
-        logging.info("Encoding message: {}".format(self.message))
+        logging.info("Encoding message: {0}".format(self.message))
         encoded_message_list = list(self.message.upper())
         for i, letter in enumerate(encoded_message_list):
             if letter.isupper():
-                logging.debug("Encoding letter: {}".format(letter))
+                logging.debug("Encoding letter: {0}".format(letter))
                 value = self.alphabet.index(letter)
                 cipher_value = value + self.offset
                 if cipher_value > 25 or cipher_value < 0:
                     cipher_value = cipher_value % 26
-                logging.debug("Cipher value: {}".format(cipher_value))
+                logging.debug("Cipher value: {0}".format(cipher_value))
                 encoded_message_list[i] = self.alphabet[cipher_value]
-                logging.debug("Encoded letter: {}".format(letter))
+                logging.debug("Encoded letter: {0}".format(letter))
         self.message = ''.join(encoded_message_list)
         return self.message
 
@@ -131,6 +131,6 @@ if __name__ == "__main__":
         raise CaesarCipherError("Please select to encode *or* decode message, "
                                 "not both.")
     if caesar_cipher.encode is True:
-        print "Encoded message: {}".format(caesar_cipher.encoded)
+        print "Encoded message: {0}".format(caesar_cipher.encoded)
     if caesar_cipher.decode is True:
-        print "Decoded message: {}".format(caesar_cipher.decoded)
+        print "Decoded message: {0}".format(caesar_cipher.decoded)
