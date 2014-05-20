@@ -131,6 +131,6 @@ if __name__ == "__main__":
         raise CaesarCipherError("Please select to encode *or* decode message, "
                                 "not both.")
     if caesar_cipher.encode is True:
-        print "Encoded message: {0}".format(caesar_cipher.encoded)
+        print("Encoded message: {0}".format(caesar_cipher.encoded))
     if caesar_cipher.decode is True:
-        print "Decoded message: {0}".format(caesar_cipher.decoded)
+        print("Decoded message: {0}".format(caesar_cipher.decoded))
