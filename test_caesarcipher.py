@@ -7,38 +7,38 @@ class CaesarCipherEncodeTest(unittest.TestCase):
     def test_encode_with_known_offset(self):
         message = "Twilio"
         test_cipher = CaesarCipher(message, encode=True, offset=1)
-        self.assertEquals(test_cipher.encoded, "UXJMJP")
+        self.assertEquals(test_cipher.encoded, "Uxjmjp")
 
     def test_encode_long_phrase_with_known_offset(self):
         message = "The quick brown fox jumps over the lazy dog."
         test_cipher = CaesarCipher(message, encode=True, offset=7)
         self.assertEquals(test_cipher.encoded,
-                          "AOL XBPJR IYVDU MVE QBTWZ VCLY AOL SHGF KVN.")
+                          "Aol xbpjr iyvdu mve qbtwz vcly aol shgf kvn.")
 
     def test_encode_with_mirror_offset(self):
         message = "The quick brown fox jumps over the lazy dog."
         test_cipher = CaesarCipher(message, encode=True, offset=26)
         self.assertEquals(test_cipher.encoded,
-                          "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.")
+                          "The quick brown fox jumps over the lazy dog.")
 
     def test_encode_with_offset_greater_than_alphabet_length(self):
         message = "The quick brown fox jumps over the lazy dog."
         test_cipher = CaesarCipher(message, encode=True, offset=28)
         self.assertEquals(test_cipher.encoded,
-                          "VJG SWKEM DTQYP HQZ LWORU QXGT VJG NCBA FQI.")
+                          "Vjg swkem dtqyp hqz lworu qxgt vjg ncba fqi.")
 
     def test_encode_with_very_large_offset(self):
         message = "The quick brown fox jumps over the lazy dog."
         test_cipher = CaesarCipher(message, encode=True, offset=10008)
         self.assertEquals(test_cipher.encoded,
-                          "RFC OSGAI ZPMUL DMV HSKNQ MTCP RFC JYXW BME.")
+                          "Rfc osgai zpmul dmv hsknq mtcp rfc jyxw bme.")
 
     def test_encode_decode_consistent(self):
         message = "The quick brown fox jumps over the lazy dog."
         setup_cipher = CaesarCipher(message, encode=True, offset=14)
         encoded_message = setup_cipher.encoded
         test_cipher = CaesarCipher(encoded_message, decode=True, offset=14)
-        self.assertEquals(message.upper(), test_cipher.decoded)
+        self.assertEquals(message, test_cipher.decoded)
 
 
 class CaesarCipherDecodeTest(unittest.TestCase):
@@ -69,7 +69,7 @@ class CaesarCipherDecodeTest(unittest.TestCase):
         message = "The quick brown fox jumps over the lazy dog."
         test_cipher = CaesarCipher(message, encode=True, offset=14)
         test_cipher.encoded
-        self.assertEquals(message.upper(), test_cipher.decoded)
+        self.assertEquals(message, test_cipher.decoded)
 
 
 class CaesarCipherRegressionTest(unittest.TestCase):
@@ -78,4 +78,4 @@ class CaesarCipherRegressionTest(unittest.TestCase):
         for i in range(0, 100):
             test_cipher = CaesarCipher(message, encode=True, offset=i)
             test_cipher.encoded
-            self.assertEquals(message.upper(), test_cipher.decoded)
+            self.assertEquals(message, test_cipher.decoded)

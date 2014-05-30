@@ -36,7 +36,9 @@ class CaesarCipher(object):
 
         # Get alphabet based on locale value set on machine.
         if alphabet is None:
-            self.alphabet = tuple(string.uppercase)
+            self.alphabet = {} 
+            self.alphabet['lower'] = tuple(string.ascii_lowercase)
+            self.alphabet['upper'] = tuple(string.ascii_uppercase)
 
     def cipher(self):
         """Applies the Caesar shift cipher.
@@ -51,23 +53,32 @@ class CaesarCipher(object):
         Returns:
             String with cipher applied.
         """
+        # If no offset is selected, pick random one with sufficient distance
+        # from original.
         if self.offset is False:
             self.offset = randrange(5, 25)
             logging.info("Random offset selected: {0}".format(self.offset))
+        logging.debug("Offset set: {0}".format(self.offset))
 
+        # Cipher
         logging.info("Encoding message: {0}".format(self.message))
-        encoded_message_list = list(self.message.upper())
-        for i, letter in enumerate(encoded_message_list):
-            if letter.isupper():
-                logging.debug("Encoding letter: {0}".format(letter))
-                value = self.alphabet.index(letter)
+        ciphered_message_list = list(self.message)
+        for i, letter in enumerate(ciphered_message_list):
+            if letter.isalpha():
+                if letter.isupper():
+                    alphabet = self.alphabet['upper']
+                else:
+                    alphabet = self.alphabet['lower']
+
+                logging.debug("Letter: {0}".format(letter))
+                value = alphabet.index(letter)
                 cipher_value = value + self.offset
                 if cipher_value > 25 or cipher_value < 0:
                     cipher_value = cipher_value % 26
                 logging.debug("Cipher value: {0}".format(cipher_value))
-                encoded_message_list[i] = self.alphabet[cipher_value]
-                logging.debug("Encoded letter: {0}".format(letter))
-        self.message = ''.join(encoded_message_list)
+                ciphered_message_list[i] = alphabet[cipher_value]
+                logging.debug("Ciphered letter: {0}".format(letter))
+        self.message = ''.join(ciphered_message_list)
         return self.message
 
     @property
