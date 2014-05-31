@@ -1,5 +1,5 @@
 [run]
-packages = caesarcipher
+source = caesarcipher
 [report]
 omit =
     */python?.?/*

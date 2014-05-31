@@ -35,7 +35,7 @@ class CaesarCipher(object):
 
         Examples:
             Encode a string with a random letter offset.
-            >>> cipher = CaesarCipher('I want to encode this string')
+            >>> cipher = CaesarCipher('I want to encode this string.')
             >>> cipher.encoded
             'W kobh hc sbqcrs hvwg ghfwbu.'
 
