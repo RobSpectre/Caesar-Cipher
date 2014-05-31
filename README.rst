@@ -8,8 +8,8 @@ messages with the `Caesar Shift Cipher`_.
 .. image:: https://travis-ci.org/RobSpectre/Caesar-Cipher.svg?branch=master
     :target: https://travis-ci.org/RobSpectre/Caesar-Cipher
 
-.. image:: https://coveralls.io/repos/RobSpectre/Caesar-Cipher/badge.png
-    :target: https://coveralls.io/r/RobSpectre/Caesar-Cipher
+.. image:: https://coveralls.io/repos/RobSpectre/Caesar-Cipher/badge.png?branch=master
+    :target: https://coveralls.io/r/RobSpectre/Caesar-Cipher?branch=master
 
 **Table of Contents**
 
