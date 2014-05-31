@@ -20,7 +20,6 @@ messages with the `Caesar Shift Cipher`_.
     :backlinks: none
 
 
-============
 Features
 ============
 
@@ -33,63 +32,59 @@ Features
 * `PEP8`_.  Praise the Dark Lord.
 
 
-============
 Installation
 ============
 
 The latest version can be installed via `pip`_.
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ pip install caesarcipher
 
 If that doesn't work, give ``easy_install`` a try:
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ easy_install caesarcipher
 
 
-===========
 Usage
 ===========
 
-------------
 Command Line
 ------------
 
 Encoding a message:
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ caesarcipher --encode "This is a message I want to encode."
 
 Encoding a message with a specific offset:
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ caesarcipher --offset 14 --encode "This is a message I want to encode."
 
 Decoding a ciphertext with a specific offset:
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ caesarcipher --offset 14 --decode "W kobh hc sbqcrs hvwg ghfwbu."
 
 Cracking a ciphertext without knowing the offset:
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ caesarcipher --crack "W kobh hc sbqcrs hvwg ghfwbu."
 
 
--------------
 Library
 -------------
 
 Encoding a message:
 
-.. code_block:: python 
+.. code-block:: python 
 
     >>> cipher = CaesarCipher('I want to encode this string')
     >>> cipher.encoded
@@ -97,7 +92,7 @@ Encoding a message:
 
 Encoding a message with a specific offset:
 
-.. code_block:: python 
+.. code-block:: python 
 
     >>> cipher = CaesarCipher('I want to encode this string.',
     ...     offset=14)
@@ -106,7 +101,7 @@ Encoding a message with a specific offset:
 
 Decoding a ciphertext with a specific offset:
 
-.. code_block:: python 
+.. code-block:: python 
 
     >>> cipher = CaesarCipher('W kobh hc sbqcrs hvwg ghfwbu.',
     ...    offset=14)
@@ -115,53 +110,48 @@ Decoding a ciphertext with a specific offset:
 
 Cracking a ciphertext without knowing the offset:
 
-.. code_block:: python 
+.. code-block:: python 
 
     >>> cipher = CaesarCipher('W kobh hc sbqcrs hvwg ghfwbu.')
     >>> cipher.cracked
     'I want to encode this string.'
 
 
-============
 Development
 ============
 
-
-----------
 Hacking
 ----------
 
 To hack on the project, clone the `GitHub repo`_:
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ git clone https://github.com/RobSpectre/Caesar-Cipher.git
 
 Then install in a `virtualenv`_.
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ pip install -e ./
 
 
------------
 Tests
 -----------
 
 The project uses `Nose`_ for tests.  Simply run from the project root.
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ nosetests -v
 
 Go ahead and check on coverage and PEP8 while you're at it!
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ nosetests -v --with-coverage --with-tissue
 
 
-===========
 Meta
 ===========
 
