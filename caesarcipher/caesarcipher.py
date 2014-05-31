@@ -127,11 +127,13 @@ class CaesarCipher(object):
                 # Use default upper and lower case characters if alphabet
                 # not supplied by user.
                 if letter.isupper():
-                    alphabet = [letter.upper() for letter in self.alphabet]
+                    alphabet = [character.upper()
+                                for character in self.alphabet]
                 else:
                     alphabet = self.alphabet
 
                 logging.debug("Letter: {0}".format(letter))
+                logging.debug("Alphabet: {0}".format(alphabet))
                 value = alphabet.index(letter)
                 cipher_value = value + self.offset
                 if cipher_value > 25 or cipher_value < 0:

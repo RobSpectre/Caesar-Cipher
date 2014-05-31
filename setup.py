@@ -6,7 +6,8 @@ setup_args = {
     'name': 'caesarcipher',
     'version': __version__,
     'url': 'https://github.com/RobSpectre/Caesar-Cipher',
-    'description': 'A Python package and command line script for encoding, decoding and cracking Caesar ciphers.',
+    'description': 'A Python package and command line script for encoding, '
+                   'decoding and cracking Caesar ciphers.',
     'long_description': open('README.rst').read(),
     'author': 'Rob Spectre',
     'author_email': 'rob@brooklynhacker.com',
@@ -26,7 +27,6 @@ setup_args = {
         'Natural Language :: English',
         'Environment :: Console',
         'Topic :: Security :: Cryptography',
-        
     ]
 }
 

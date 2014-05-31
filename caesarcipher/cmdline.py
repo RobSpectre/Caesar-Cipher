@@ -27,6 +27,7 @@ parser.add_argument('-a', '--alphabet',
                     help="String of alphabet you want to use to apply the "
                          "cipher against.")
 
+
 def main():
     caesar_cipher = CaesarCipher()
     parser.parse_args(namespace=caesar_cipher)
