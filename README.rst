@@ -30,6 +30,7 @@ Features
 * Arbitrary cipher offsets
 * Command Line Interface
 * Test suite
+* `PEP8`_.  Praise the Dark Lord.
 
 
 ============
@@ -38,13 +39,13 @@ Installation
 
 The latest version can be installed via `pip`_.
 
-.. code_block:: bash
-    $ pip install caesarcipher
+    .. code_block:: bash
+        $ pip install caesarcipher
 
 If that doesn't work, give ``easy_install`` a try:
 
-.. code_clock:: bash
-    $ easy_install caesarcipher
+    .. code_block:: bash
+        $ easy_install caesarcipher
 
 
 ===========
@@ -57,23 +58,23 @@ Command Line
 
 Encoding a message:
 
-.. code_clock:: bash
-    $ caesarcipher --encode "This is a message I want to encode."
+    .. code_block:: bash
+        $ caesarcipher --encode "This is a message I want to encode."
 
 Encoding a message with a specific offset:
 
-.. code_clock:: bash
-    $ caesarcipher --offset 14 --encode "This is a message I want to encode."
+    .. code_block:: bash
+        $ caesarcipher --offset 14 --encode "This is a message I want to encode."
 
 Decoding a ciphertext with a specific offset:
 
-.. code_clock:: bash
-    $ caesarcipher --offset 14 --decode "W kobh hc sbqcrs hvwg ghfwbu."
+    .. code_block:: bash
+        $ caesarcipher --offset 14 --decode "W kobh hc sbqcrs hvwg ghfwbu."
 
 Cracking a ciphertext without knowing the offset:
 
-.. code_block:: bash
-    $ caesarcipher --crack "W kobh hc sbqcrs hvwg ghfwbu."
+    .. code_block:: bash
+        $ caesarcipher --crack "W kobh hc sbqcrs hvwg ghfwbu."
 
 
 -------------
@@ -82,38 +83,38 @@ Library
 
 Encoding a message:
 
-.. code_clock:: python 
-    >>> cipher = CaesarCipher('I want to encode this string')
-    >>> cipher.encoded
-    'W kobh hc sbqcrs hvwg ghfwbu.'
+    .. code_block:: python 
+        >>> cipher = CaesarCipher('I want to encode this string')
+        >>> cipher.encoded
+        'W kobh hc sbqcrs hvwg ghfwbu.'
 
 Encoding a message with a specific offset:
 
-.. code_clock:: python 
-    >>> cipher = CaesarCipher('I want to encode this string.',
-    ...     offset=14)
-    >>> cipher.encoded
-    'W kobh hc sbqcrs hvwg ghfwbu.'
+    .. code_block:: python 
+        >>> cipher = CaesarCipher('I want to encode this string.',
+        ...     offset=14)
+        >>> cipher.encoded
+        'W kobh hc sbqcrs hvwg ghfwbu.'
 
 Decoding a ciphertext with a specific offset:
 
-.. code_clock:: python 
-    >>> cipher = CaesarCipher('W kobh hc sbqcrs hvwg ghfwbu.',
-    ...    offset=14)
-    >>> cipher.decoded
-    'I want to encode this string.'
+    .. code_block:: python 
+        >>> cipher = CaesarCipher('W kobh hc sbqcrs hvwg ghfwbu.',
+        ...    offset=14)
+        >>> cipher.decoded
+        'I want to encode this string.'
 
 Cracking a ciphertext without knowing the offset:
 
-.. code_block:: python 
-    >>> cipher = CaesarCipher('W kobh hc sbqcrs hvwg ghfwbu.')
-    >>> cipher.cracked
-    'I want to encode this string.'
+    .. code_block:: python 
+        >>> cipher = CaesarCipher('W kobh hc sbqcrs hvwg ghfwbu.')
+        >>> cipher.cracked
+        'I want to encode this string.'
 
 
-#############
+============
 Development
-#############
+============
 
 
 ----------
@@ -122,13 +123,13 @@ Hacking
 
 To hack on the project, clone the `GitHub repo`_:
 
-.. code_block:: bash
-    $ git clone https://github.com/RobSpectre/Caesar-Cipher.git
+    .. code_block:: bash
+        $ git clone https://github.com/RobSpectre/Caesar-Cipher.git
 
 Then install in a `virtualenv`_.
 
-.. code_block:: bash
-    $ pip install -e ./
+    .. code_block:: bash
+        $ pip install -e ./
 
 
 -----------
@@ -137,13 +138,18 @@ Tests
 
 The project uses `Nose`_ for tests.  Simply run from the project root.
 
-.. code_block:: bash
-    $ nosetests -v
+    .. code_block:: bash
+        $ nosetests -v
+
+Go ahead and check on coverage and PEP8 while you're at it!
+
+    .. code_block:: bash
+        $ nosetests -v --with-coverage --with-tissue
 
 
-############
+===========
 Meta
-############
+===========
 
 * Written by `Rob Spectre`_
 * Used for Hacker Olympics London 2014
@@ -160,3 +166,4 @@ Meta
 .. _virtualenv: http://docs.python-guide.org/en/latest/dev/virtualenvs/
 .. _Rob Spectre: http://www.brooklynhacker.com
 .. _MIT License: http://opensource.org/licenses/MIT
+.. _PEP8: http://legacy.python.org/dev/peps/pep-0008/
