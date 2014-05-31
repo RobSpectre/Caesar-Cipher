@@ -1,14 +1,15 @@
 language: python
-python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
 install:
-  - pip install -r requirements.txt
-  - pip install coveralls
+  - pip install tox 
 script:
-  - nosetests --with-coverage --with-tissue
+  - tox
+env:
+  - TOXENV: py26
+  - TOXENV: py27
+  - TOXENV: py30
+  - TOXENV: py31
+  - TOXENV: py32
+  - TOXENV: py33
+  - TOXENV: py34
 after_success:
   - coveralls

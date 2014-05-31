@@ -1,4 +1,9 @@
 *.pyc
 *.swp
-*.egg-info
+*egg-info
 .coverage
+venv
+build
+dist
+.tox
+
