@@ -9,6 +9,6 @@ install:
   - pip install -r requirements.txt
   - pip install coveralls
 script:
-  - nosetests --with-coverage --with-pep8
+  - nosetests --with-coverage --with-tissue
 aftersuccess:
   - coveralls
