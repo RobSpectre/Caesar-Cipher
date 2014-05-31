@@ -1,0 +1,6 @@
+[run]
+packages = caesarcipher
+[report]
+omit =
+    */python?.?/*
+    */site-packages/nose/*

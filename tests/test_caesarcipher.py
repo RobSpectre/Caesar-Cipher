@@ -41,6 +41,13 @@ class CaesarCipherEncodeTest(unittest.TestCase):
         test_cipher = CaesarCipher(encoded_message, decode=True, offset=14)
         self.assertEquals(message, test_cipher.decoded)
 
+    def test_encode_with_arbitrary_alphabet(self):
+        message = "The quick brown fox jumps over the lazy dog."
+        alphabet = 'ueyplkizjgncdbqshoaxmrwftv'
+        test_cipher = CaesarCipher(message, offset=7, alphabet=alphabet)
+        self.assertEquals('Kfj rzbad mytpo ltu szenw tijy kfj cvqg xth.',
+                          test_cipher.encoded)
+
 
 class CaesarCipherDecodeTest(unittest.TestCase):
     def test_decode_with_known_offset(self):
@@ -72,6 +79,13 @@ class CaesarCipherDecodeTest(unittest.TestCase):
         test_cipher.encoded
         self.assertEquals(message, test_cipher.decoded)
 
+    def test_decode_with_arbitrary_alphabet(self):
+        message = "Kfj rzbad mytpo ltu szenw tijy kfj cvqg xth."
+        alphabet = 'ueyplkizjgncdbqshoaxmrwftv'
+        test_cipher = CaesarCipher(message, offset=7, alphabet=alphabet)
+        self.assertEquals('The quick brown fox jumps over the lazy dog.',
+                          test_cipher.decoded)
+
 
 class CaesarCipherRegressionTest(unittest.TestCase):
     def test_all_offsets(self):
@@ -82,11 +96,19 @@ class CaesarCipherRegressionTest(unittest.TestCase):
             self.assertEquals(message, test_cipher.decoded)
 
 
+class CaesarCipherErrorTest(unittest.TestCase):
+    def test_caesar_cipher_error(self):
+        def raiseCaesarCipherError():
+            raise CaesarCipherError("This test is bullshit to hit 100%"
+                                    " coverage.")
+        self.assertRaises(CaesarCipherError, raiseCaesarCipherError)
+
+
 class CaesarCipherCrackTest(unittest.TestCase):
     def test_calculate_entropy_zero_offset(self):
         message = "The quick brown fox jumps over the lazy dog."
         test_cipher = CaesarCipher(message, crack=True)
-        confirmed_entropy_value = 179.14217305030957 
+        confirmed_entropy_value = 179.14217305030957
         test_entropy_value = test_cipher.calculate_entropy(message)
         self.assertEquals(confirmed_entropy_value, test_entropy_value)
 

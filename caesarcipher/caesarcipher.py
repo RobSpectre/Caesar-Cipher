@@ -1,19 +1,19 @@
-import argparse
-import logging
 from random import randrange
 import string
 import math
+import logging
 
 
 class CaesarCipher(object):
     def __init__(self, message=None, encode=False, decode=False, offset=False,
                  crack=None, verbose=None, alphabet=None):
         """
-        A class that encodes and decodes strings using the Caesar shift cipher.
+        A class that encodes, decodes and cracks strings using the Caesar shift
+        cipher.
 
         Accepts messages in a string and encodes or decodes by shifting the
-        value of the letter by an arbitrary integer and transforming to
-        uppercase.
+        value of the letter by an arbitrary integer to a different letter in
+        the alphabet provided.
 
         http://en.wikipedia.org/wiki/Caesar_cipher
 
@@ -32,6 +32,30 @@ class CaesarCipher(object):
                 use as command line script flag.
             offset: Integer by which you want to shift the value of a letter.
             alphabet: A tuple containing the ASCII alphabet in uppercase.
+
+        Examples:
+            Encode a string with a random letter offset.
+            >>> cipher = CaesarCipher('I want to encode this string')
+            >>> cipher.encoded
+            'W kobh hc sbqcrs hvwg ghfwbu.'
+
+            Encode a string with a specific letter offset.
+            >>> cipher = CaesarCipher('I want to encode this string.',
+            ...     offset=14)
+            >>> cipher.encoded
+            'W kobh hc sbqcrs hvwg ghfwbu.'
+
+
+            Decode a string with a specific letter offset.
+            >>> cipher = CaesarCipher('W kobh hc sbqcrs hvwg ghfwbu.',
+            ...    offset=14)
+            >>> cipher.decoded
+            'I want to encode this string.'
+
+            Crack a string of ciphertext without knowing the letter offset.
+            >>> cipher = CaesarCipher('W kobh hc sbqcrs hvwg ghfwbu.')
+            >>> cipher.cracked
+            'I want to encode this string.'
         """
         self.message = message
         self.encode = encode
@@ -73,18 +97,18 @@ class CaesarCipher(object):
 
         # Get ASCII alphabet if one is not provided by the user.
         if alphabet is None:
-            self.alphabet = {}
-            self.alphabet['lower'] = tuple(string.ascii_lowercase)
-            self.alphabet['upper'] = tuple(string.ascii_uppercase)
+            self.alphabet = tuple(string.ascii_lowercase)
 
     def cipher(self):
         """Applies the Caesar shift cipher.
 
         Based on the attributes of the object, applies the Caesar shift cipher
-        to the message attribute.
+        to the message attribute. Accepts positive and negative integers as
+        offsets.
 
         Required attributes:
             message
+            offset
 
         Returns:
             String with cipher applied.
@@ -100,11 +124,11 @@ class CaesarCipher(object):
         ciphered_message_list = list(self.message)
         for i, letter in enumerate(ciphered_message_list):
             if letter.isalpha():
+                # Use default upper and lower case characters if alphabet
+                # not supplied by user.
                 if letter.isupper():
-                    alphabet = self.alphabet.get('upper', None)
+                    alphabet = [letter.upper() for letter in self.alphabet]
                 else:
-                    alphabet = self.alphabet.get('lower', None)
-                if alphabet is None:
                     alphabet = self.alphabet
 
                 logging.debug("Letter: {0}".format(letter))
@@ -160,8 +184,8 @@ class CaesarCipher(object):
 
         sorted_by_entropy = sorted(entropy_values, key=entropy_values.get)
         self.offset = sorted_by_entropy[0] * -1
-        self.message = message
         cracked_text = attempt_cache[sorted_by_entropy[0]]
+        self.message = cracked_text
 
         logging.debug("Entropy scores: {0}".format(entropy_values))
         logging.debug("Lowest entropy score: "
@@ -200,63 +224,3 @@ class CaesarCipherError(Exception):
     def __init__(self, message):
         logging.error("ERROR: {0}".format(message))
         logging.error("Try running with --help for more information.")
-
-
-# Parser configuration
-parser = argparse.ArgumentParser(description="Caesar Cipher - encode, decode "
-                                             "or crack messages with an "
-                                             "English alphabet offset.",
-                                 epilog="Written by Rob Spectre for Hacker "
-                                 "Olympics London.\n"
-                                 "http://www.brooklynhacker.com")
-parser.add_argument('message',
-                    help="Message to be encoded, decoded or cracked.")
-parser.add_argument('-e', '--encode', action="store_true",
-                    help="Encode this message.")
-parser.add_argument('-d', '--decode', action="store_true",
-                    help="Decode this message.")
-parser.add_argument('-c', '--crack', action="store_true",
-                    help="Crack this ciphertext to find most likely message.")
-parser.add_argument('-v', '--verbose', action="store_true",
-                    help="Turn on verbose output.")
-parser.add_argument('-o', '--offset',
-                    help="Integer offset to encode/decode message against.")
-parser.add_argument('-a', '--alphabet',
-                    help="String of alphabet you want to use to apply the "
-                         "cipher against.")
-
-if __name__ == "__main__":
-    caesar_cipher = CaesarCipher()
-    parser.parse_args(namespace=caesar_cipher)
-
-    # Logging configuration
-    if caesar_cipher.verbose is True:
-        log_level = logging.DEBUG
-        log_format = "%(asctime)s - %(levelname)s: %(message)s"
-    else:
-        log_level = logging.INFO
-        log_format = "%(message)s"
-
-    logging.basicConfig(level=log_level, format=log_format)
-
-    # Non-required arguments and error conditions.
-    if caesar_cipher.offset:
-        caesar_cipher.offset = int(caesar_cipher.offset)
-    if caesar_cipher.offset is False and caesar_cipher.decode is True:
-        raise CaesarCipherError("Message cannot be decoded without "
-                                "selecting an offset.  Please try "
-                                "again with -o switch.")
-    if caesar_cipher.encode is True and caesar_cipher.decode is True:
-        raise CaesarCipherError("Please select to encode or encode a message, "
-                                "not both.")
-
-    # Required arguments.
-    if caesar_cipher.decode is True:
-        logging.info("Decoded message: {0}".format(caesar_cipher.decoded))
-    elif caesar_cipher.crack is True:
-        logging.info("Cracked message: {0}".format(caesar_cipher.cracked))
-    elif caesar_cipher.encode is True:
-        logging.info("Encoded message: {0}".format(caesar_cipher.encoded))
-    else:
-        logging.error("Please select a message to encode, decode or "
-                      "crack.  For more information, use --help.")
