@@ -1,6 +1,7 @@
 import unittest
 
 from caesarcipher import CaesarCipher
+from caesarcipher import CaesarCipherError
 
 
 class CaesarCipherEncodeTest(unittest.TestCase):
@@ -85,7 +86,7 @@ class CaesarCipherCrackTest(unittest.TestCase):
     def test_calculate_entropy_zero_offset(self):
         message = "The quick brown fox jumps over the lazy dog."
         test_cipher = CaesarCipher(message, crack=True)
-        confirmed_entropy_value = -19.904685894478845
+        confirmed_entropy_value = 179.14217305030957 
         test_entropy_value = test_cipher.calculate_entropy(message)
         self.assertEquals(confirmed_entropy_value, test_entropy_value)
 
@@ -94,6 +95,18 @@ class CaesarCipherCrackTest(unittest.TestCase):
         plaintext = "The quick brown fox jumps over the lazy dog."
         test_crack = CaesarCipher(ciphertext, crack=True)
         self.assertEquals(plaintext, test_crack.cracked)
+
+    def test_crack_one_word(self):
+        ciphertext = "Yxo"
+        plaintext = "One"
+        test_crack = CaesarCipher(ciphertext, crack=True)
+        self.assertEquals(plaintext, test_crack.cracked)
+
+    def test_crack_difficult_word(self):
+        message = "A quixotic issue to test."
+        test_cipher = CaesarCipher(message).encoded
+        cracked_text = CaesarCipher(test_cipher).cracked
+        self.assertEquals(message, cracked_text)
 
 
 class CaesarCipherCrackRegressionTest(unittest.TestCase):

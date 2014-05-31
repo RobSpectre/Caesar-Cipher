@@ -130,16 +130,12 @@ class CaesarCipher(object):
             is better).
         """
         total = 0
-        ignored_chars = []
         for char in entropy_string:
             if char.isalpha():
-                total += math.log(self.frequency[char.lower()])
-            else:
-                ignored_chars.append(char)
-        logging.debug("Total sum of freq logging. of letters: {0}".format(
-                      total))
-        logging.debug("Total ignored characters: {0}".format(ignored_chars))
-        return total / math.log(2) / len(ignored_chars)
+                prob = self.frequency[char.lower()]
+                total += - math.log(prob) / math.log(2)
+        logging.debug("Entropy score: {0}".format(total))
+        return total
 
     @property
     def cracked(self):
@@ -150,6 +146,7 @@ class CaesarCipher(object):
         """
         logging.info("Cracking message: {0}".format(self.message))
         entropy_values = {}
+        attempt_cache = {}
         message = self.message
         for i in range(25):
             self.message = message
@@ -159,14 +156,18 @@ class CaesarCipher(object):
             test_cipher = self.cipher()
             logging.debug("Attempting plaintext: {0}".format(test_cipher))
             entropy_values[i] = self.calculate_entropy(test_cipher)
+            attempt_cache[i] = test_cipher
 
-        sorted_by_entropy = sorted(entropy_values, key=entropy_values.get,
-                                   reverse=True)
+        sorted_by_entropy = sorted(entropy_values, key=entropy_values.get)
         self.offset = sorted_by_entropy[0] * -1
         self.message = message
-        cracked_text = self.cipher()
+        cracked_text = attempt_cache[sorted_by_entropy[0]]
 
+        logging.debug("Entropy scores: {0}".format(entropy_values))
+        logging.debug("Lowest entropy score: "
+                      "{0}".format(str(entropy_values[sorted_by_entropy[0]])))
         logging.debug("Most likely offset: {0}".format(self.offset))
+        logging.debug("Most likely message: {0}".format(cracked_text))
 
         return cracked_text
 
