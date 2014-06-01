@@ -87,6 +87,7 @@ Encoding a message:
 
 .. code-block:: python 
 
+    >>> from caesarcipher import CaesarCipher
     >>> cipher = CaesarCipher('I want to encode this string')
     >>> cipher.encoded
     'W kobh hc sbqcrs hvwg ghfwbu.'
@@ -95,6 +96,7 @@ Encoding a message with a specific offset:
 
 .. code-block:: python 
 
+    >>> from caesarcipher import CaesarCipher
     >>> cipher = CaesarCipher('I want to encode this string.',
     ...     offset=14)
     >>> cipher.encoded
@@ -104,6 +106,7 @@ Decoding a ciphertext with a specific offset:
 
 .. code-block:: python 
 
+    >>> from caesarcipher import CaesarCipher
     >>> cipher = CaesarCipher('W kobh hc sbqcrs hvwg ghfwbu.',
     ...    offset=14)
     >>> cipher.decoded
@@ -113,6 +116,7 @@ Cracking a ciphertext without knowing the offset:
 
 .. code-block:: python 
 
+    >>> from caesarcipher import CaesarCipher
     >>> cipher = CaesarCipher('W kobh hc sbqcrs hvwg ghfwbu.')
     >>> cipher.cracked
     'I want to encode this string.'
