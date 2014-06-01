@@ -22,7 +22,6 @@ setup_args = {
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: System Administrator',
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'Environment :: Console',

@@ -11,6 +11,10 @@ messages with the `Caesar Shift Cipher`_.
 .. image:: https://coveralls.io/repos/RobSpectre/Caesar-Cipher/badge.png?branch=master
     :target: https://coveralls.io/r/RobSpectre/Caesar-Cipher?branch=master
 
+.. image:: https://badge.fury.io/py/caesarcipher.svg
+    :target: http://badge.fury.io/py/caesarcipher
+
+
 **Table of Contents**
 
 
