@@ -29,7 +29,8 @@ Features
 * Arbitrary cipher offsets
 * Command Line Interface
 * Test suite
-* `PEP8`_.  Praise the Dark Lord.
+* Support for both Python 2 and 3
+* `PEP8`_.  Praise the Dark Lord
 
 
 Installation
